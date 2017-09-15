@@ -1,0 +1,85 @@
+/**
+ * Document: MaxCompiler Tutorial (maxcompiler-tutorial.pdf)
+ * Chapter: 6      Example: 1      Name: Typecast
+ * MaxFile name: TypeCast
+ * Summary:
+ *        Kernel that casts from an unsigned int to a float and back.
+ */
+
+package typecast;
+
+import com.maxeler.maxcompiler.v2.kernelcompiler.Kernel;
+import com.maxeler.maxcompiler.v2.kernelcompiler.KernelParameters;
+import com.maxeler.maxcompiler.v2.kernelcompiler.types.base.DFEVar;
+
+class TypeCastKernel extends Kernel {
+
+	TypeCastKernel(KernelParameters parameters) {
+		super(parameters);
+
+		// Type declarations
+        DFEVar A = constant.var(dfeInt(8),65);
+        DFEVar T = constant.var(dfeInt(8),84);
+        DFEVar G = constant.var(dfeInt(8),71);
+        DFEVar C = constant.var(dfeInt(8),67);
+
+        DFEVar x = constant.var(dfeInt(8),0);
+
+		DFEVar nA  = x.cast(dfeInt(8));
+		DFEVar nT  = x.cast(dfeInt(8));
+		DFEVar nG  = x.cast(dfeInt(8));
+		DFEVar nC  = x.cast(dfeInt(8));
+
+		DFEVar profile_A  = x.cast(dfeInt(8));
+		DFEVar profile_T  = x.cast(dfeInt(8));
+		DFEVar profile_G  = x.cast(dfeInt(8));
+		DFEVar profile_C  = x.cast(dfeInt(8));
+
+		// Input
+		DFEVar d1 = io.input("d1", dfeInt(8));
+		DFEVar d2 = io.input("d2", dfeInt(8));
+		DFEVar d3 = io.input("d3", dfeInt(8));
+		DFEVar d4 = io.input("d4", dfeInt(8));
+		DFEVar d5 = io.input("d5", dfeInt(8));
+
+        // Real stuff
+        
+        nA = (d1.eq(A))?nA+1:nA;
+        nT = (d1.eq(T))?nT+1:nT;
+        nG = (d1.eq(G))?nG+1:nG;
+        nC = (d1.eq(C))?nC+1:nC;
+        
+        nA = (d2.eq(A))?nA+1:nA;
+        nT = (d2.eq(T))?nT+1:nT;
+        nG = (d2.eq(G))?nG+1:nG;
+        nC = (d2.eq(C))?nC+1:nC;
+
+        nA = (d3.eq(A))?nA+1:nA;
+        nT = (d3.eq(T))?nT+1:nT;
+        nG = (d3.eq(G))?nG+1:nG;
+        nC = (d3.eq(C))?nC+1:nC;
+
+        nA = (d4.eq(A))?nA+1:nA;
+        nT = (d4.eq(T))?nT+1:nT;
+        nG = (d4.eq(G))?nG+1:nG;
+        nC = (d4.eq(C))?nC+1:nC;
+
+        nA = (d5.eq(A))?nA+1:nA;
+        nT = (d5.eq(T))?nT+1:nT;
+        nG = (d5.eq(G))?nG+1:nG;
+        nC = (d5.eq(C))?nC+1:nC;
+
+        profile_A = nA; 
+        profile_T = nT; 
+        profile_G = nG; 
+        profile_C = nC; 
+
+//        debug.simPrintf("\n prof_A = %d\tprof_T=%d\tprof_G=%d\tprof_C=%d\n",profile_A,profile_T,profile_G,profile_C);
+
+		// Output
+		io.output("a", profile_A, dfeInt(8));
+		io.output("t", profile_C, dfeInt(8));
+		io.output("g", profile_G, dfeInt(8));
+		io.output("c", profile_T, dfeInt(8));
+	}
+}
